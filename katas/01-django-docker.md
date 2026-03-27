@@ -143,3 +143,10 @@ Run the commands to bootstrap the project.
    - [ ] Data Persistence? Postgres volume is correctly mapped.
 
    - [ ] Build Time? Under 20 minutes?
+
+
+## ⏱️ Training Log
+
+   * Attempt #1: __ min.
+
+   * Target: < 15 minutes.
