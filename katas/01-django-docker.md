@@ -14,15 +14,18 @@ Set up a Django project from scratch using **Docker Compose**, **PostgreSQL**, a
 Prepare the workspace and define the environment's requirements.
 
 1. **Initial Workspace:**
-   ```bash
+   
+   `bash`
+   ``` 
    mkdir django-kata && cd django-kata
    touch Dockerfile .dockerignore docker-compose.yml .env Pipfile
    ```
     Pipfile (Core Stack):
-    Ini, TOML
-
+   
+   
+    ```toml
     [[source]]
-    url = "[https://pypi.org/simple](https://pypi.org/simple)"
+    url = "https://pypi.org/simple"
     verify_ssl = true
     name = "pypi"
 
@@ -38,7 +41,7 @@ Prepare the workspace and define the environment's requirements.
 
     [requires]
     python_version = "3.12"
-
+    ```
 ## 🐳 Phase 2: Professional Dockerization
 
 Build a secure Dockerfile optimized for speed and security.
