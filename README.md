@@ -18,7 +18,7 @@ In martial arts, a *Kata* is a structured pattern of movements. In software, it'
 ---
 
 ## 🛠️ My Tech Stack for these Katas
-*   **Framework:** Django 5.1+ / 6.0
+*   **Framework:** Django 6.0
 *   **Containerization:** Docker & Docker Compose
 *   **Dependency Management:** Pipenv
 *   **Database:** PostgreSQL 16 (Alpine)
