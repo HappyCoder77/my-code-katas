@@ -10,7 +10,7 @@ In martial arts, a *Kata* is a structured pattern of movements. In software, it'
 ## ⛩️ Select Your Dojo
 | Dojo | Focus | Katas |
 | :--- | :--- | :---: |
-| [**Django Dojo**](./categories/django/README.md) | Backend, DRF, Security | 0 |
+| [**Django Dojo**](./categories/django/README.md) | Backend, DRF, Security | 1 |
 
 ---
 
