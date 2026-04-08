@@ -10,6 +10,19 @@ Set up a Django project from scratch using **Docker Compose**, **PostgreSQL**, a
 
 ---
 
+## 🛠️ My Tech Stack for this Kata
+| Tool / Library | Purpose |
+| :--- | :--- |
+| **Python** | Core Runtime (Slim image for smaller footprint) |
+| **Django** | Web Framework (LTS focus) |
+| **PostgreSQL** | Relational Database (Alpine for efficiency) |
+| **Pipenv** | Deterministic dependency management | Latest |
+| **django-environ** | 12-Factor app env management (Database URLs) |
+| **WhiteNoise** | Efficient static file serving for containers |
+| **psycopg2-binary** | PostgreSQL adapter for Python |
+  
+---
+
 ## 🛠️ Phase 1: Structure & Dependencies
 Prepare the workspace and define the environment's requirements.
 
@@ -20,8 +33,34 @@ Prepare the workspace and define the environment's requirements.
    mkdir django-kata && cd django-kata
    touch Dockerfile .dockerignore docker-compose.yml .env Pipfile
    ```
-    Pipfile (Core Stack):
+2. **.gitignore** (Git Sanitization):
+
+   ```
+   __pycache__/
+   *.py[cod]
+   .env
+   .venv/
+   db.sqlite3
+   staticfiles/
+   postgres_data/  # Muy importante: no versionar la data binaria de la DB
+   .vscode/
+   ```
+
+
+3. **.dockerignore** (Context Optimization):
    
+   ```
+   .git
+   .gitignore
+   __pycache__/
+   *.py[cod]
+   .env
+   .venv
+   env/
+   venv/
+   ```
+
+4. **Pipfile** (Core Stack):
    
     ```toml
     [[source]]
@@ -134,7 +173,17 @@ Run the commands to bootstrap the project.
      ```
      docker compose exec web python manage.py migrate
      ```
+  4. Git Initialization:
+     ```
+     git init
+     git add .
+     git commit -m "feat: initial professional django-docker setup"
+     ```
 
+   5. Verify Ownership (Host):
+      ```
+      sudo chown -R $USER:$USER .
+      ```
 ## ✅ Mastery Checklist
 
    - [ ] Non-root User? Confirmed via USER djangouser in Dockerfile.
@@ -146,6 +195,12 @@ Run the commands to bootstrap the project.
    - [ ] Data Persistence? Postgres volume is correctly mapped.
 
    - [ ] Build Time? Under 20 minutes?
+         
+   - [ ] Git sanitized?
+         
+   - [ ] First commit
+         
+   - [ ] Non-root user? confirmed via whoami
 
 
 ## ⏱️ Training Log
