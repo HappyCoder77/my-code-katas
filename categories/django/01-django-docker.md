@@ -31,7 +31,7 @@ Prepare the workspace and define the environment's requirements.
    `bash`
    ``` 
    mkdir django-kata && cd django-kata
-   touch Dockerfile .dockerignore docker-compose.yml .env Pipfile
+   touch Dockerfile .dockerignore docker-compose.yml .env Pipfile .gitignore
    ```
 2. **.gitignore** (Git Sanitization):
 
