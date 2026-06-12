@@ -2,7 +2,7 @@
 
 # 🐍 Django Dojo
 
-Focused on mastering **Django 6.0** and **Cloud-Native** backend patterns.
+Focused on mastering **Django** and **Cloud-Native** backend patterns.
 
 ## 📚 Kata Catalog
 
