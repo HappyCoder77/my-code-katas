@@ -2,6 +2,7 @@
 # 🥋 Kata 02: Basic Django Setup
 
 This kata focuses on building a basic development environment. The goal is to mechanize the creation of a basic Django project.
+
 ---
 
 ## 🎯 The Objective
@@ -12,167 +13,65 @@ Set up a basic Django project from scratch.
 ## 🛠️ My Tech Stack for this Kata
 | Tool / Library | Purpose |
 | :--- | :--- |
-| **Python** | Core Runtime (Slim image for smaller footprint) |
+| **Python** | Current stable runtime environment for running Django backend services. |
 | **Django** | Web Framework (LTS focus) |
-| **pipenv** | Dependencies and virtual environments management|
+| **pipenv** | Dependencies and virtual environments management. |
   
 ---
 
 ## 🛠️ Phase 1: Structure & Dependencies
-Prepare the workspace and define the environment's requirements.
+Prepare the workspace and install dependencies.
 
 1. **Initial Workspace:**
-   
-   
    ```bash
    mkdir hello && cd hello
-   pipenv install django~=5.0.0
+   pipenv install 'django~=5.0.0'
    pipenv shell
    ```
-1. Initialize the Django project:
-   
+
+
+## 🚀 Phase 2: Execution (The Ignite)
+Run the commands to bootstrap the project.
+
+1. **Initialize the Django project:**
    ```bash
    django-admin startproject config .
    ```
 
-
-2. Run migrations:
-
-  
+2. **Run migrations:**
    ```bash
    python manage.py migrate
    ```
 
-3. Start the environment:
-
-    
+3. **Verify the configuration (Sanity Check):**
+   ```bash
+   python manage.py check
+   ```
+   
+4. **Start the environment:**
     ```bash
     python manage.py runserver
     ```
-## 🐳 Phase 2: Professional Dockerization
 
-Build a secure Dockerfile optimized for speed and security.
+## 🛑 Phase 3: The Cool Down
+Clean up and exit the virtual environment.
 
-`Dockerfile`
-```
-FROM python:3.12-slim
+1. **Stop the server:** Press `Ctrl + C` in your terminal.
 
-# Prevent .pyc files and enable real-time logging
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+2. Exit the virtual environment:
+   ```bash
+   exit
+   ```
 
-WORKDIR /app
+## 🔄 Reset for Repetition (Optional)
+Run these commands from your base terminal if you want to wipe the slate clean and start the kata again:
 
-# Security: Create and use a non-root user
-RUN groupadd -g 1000 djangouser && \
-    useradd -m -u 1000 -g djangouser djangouser
-
-# Install Pipenv
-RUN pip install --no-cache-dir pipenv
-
-# Dependency Layer (Cached for faster builds)
-COPY Pipfile Pipfile.lock /app/
-RUN pipenv install --system --deploy
-
-# Copy code and assign ownership to djangouser
-COPY --chown=djangouser:djangouser . /app/
-
-USER djangouser
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+1. **Destroy the virtual environment:**
+```bash
+pipenv --rm
 ```
 
-## 🏗️ Phase 3: Orchestration
-
-Define the services in docker-compose.yml.
-
-`docker-compose.yml`
+2. **Remove the project workspace:**
+```bash
+cd .. && rm -rf hello
 ```
-services:
-  db:
-    image: postgres:16-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres_password
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres_password@db:5432/postgres
-      - DJANGO_DEBUG=True
-      - DJANGO_SECRET_KEY=dev-secret-key-$$change-me$$
-    depends_on:
-      db:
-        condition: service_healthy
-    user: "1000:1000"
-
-volumes:
-  postgres_data:
-```
-
-## 🚀 Phase 4: Execution (The Ignite)
-
-Run the commands to bootstrap the project.
-
-  1. Initialize the Django project:
-     ```
-     docker compose run --rm web django-admin startproject config .
-     ```
-
-  2. Start the environment:
-     ```
-     docker compose up -d
-     ```
-
-  3. Run migrations:
-     ```
-     docker compose exec web python manage.py migrate
-     ```
-  4. Git Initialization:
-     ```
-     git init
-     git add .
-     git commit -m "feat: initial professional django-docker setup"
-     ```
-
-   5. Verify Ownership (Host):
-      ```
-      sudo chown -R $USER:$USER .
-      ```
-## ✅ Mastery Checklist
-
-   - [ ] Non-root User? Confirmed via USER djangouser in Dockerfile.
-
-   - [ ] Healthcheck? The web service correctly waits for db readiness.
-
-   - [ ] Env Escaping? Used $$ for special characters in Docker Compose.
-
-   - [ ] Data Persistence? Postgres volume is correctly mapped.
-
-   - [ ] Build Time? Under 20 minutes?
-         
-   - [ ] Git sanitized?
-         
-   - [ ] First commit
-         
-   - [ ] Non-root user? confirmed via whoami
-
-
-## ⏱️ Training Log
-
-   * Attempt #1: __ min.
-
-   * Target: < 15 minutes.
