@@ -1,5 +1,5 @@
 
-# 🥋 Kata 01: Professional Django-Docker Setup
+# 🥋 Kata 02: Professional Django-Docker Setup
 
 This kata focuses on building a professional-grade development environment. The goal is to mechanize the creation of a secure, containerized Django project using best practices like non-root users and database health checks.
 
