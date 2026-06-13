@@ -1,5 +1,5 @@
 [← Back to Django Dojo](./README.md)
-# 🥋 Kata: Basic Django App
+# 🥋 Basic Django App
 
 This kata focuses on making a simple homepage by creating a dedicated pages app for it. The goal is to mechanize the creation of a basic Django view.
 
