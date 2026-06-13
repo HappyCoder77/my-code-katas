@@ -107,3 +107,8 @@ pipenv --rm
 ```bash
 cd .. && rm -rf hello
 ```
+
+---
+
+## 📚 Credits & References
+* This kata is based on the architectural patterns and production-ready concepts from the book **[Django for Professionals](https://djangoforprofessionals.com/)** by **William S. Vincent**.
