@@ -9,6 +9,7 @@ Focused on mastering **Django** and **Cloud-Native** backend patterns.
 | # | Title | Focus | Status |
 | :--- | :--- | :--- | :--- |
 | 01 | **[Basic Django Setup](./01-django-hello.md)** | Pipenv workspace, Sanity Check, Reset workflow | ✅ |
+| 01 | **[Basic Django View](./django-view.md)** |  | ✅ |
 | 02 | **[Professional Setup](./02-django-docker.md)** | Non-root, Healthchecks | ✅ |
 | 03 | **[Modern Allauth](./03-django-allauth.md)** | Email-based auth | ⏳ |
 
