@@ -209,3 +209,9 @@ Run the commands to bootstrap the project.
    * Attempt #1: __ min.
 
    * Target: < 15 minutes.
+
+
+---
+
+## 📚 Credits & References
+* This kata is based on the architectural patterns and production-ready concepts from the book **[Django for Professionals](https://djangoforprofessionals.com/)** by **William S. Vincent**.
