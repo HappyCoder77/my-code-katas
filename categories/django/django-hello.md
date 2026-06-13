@@ -1,5 +1,5 @@
 [← Back to Django Dojo](./README.md)
-# 🥋 Kata 01: Basic Django Setup
+# 🥋 Basic Django Setup
 
 This kata focuses on building a basic development environment. The goal is to mechanize the creation of a basic Django project.
 
