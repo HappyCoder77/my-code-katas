@@ -8,6 +8,6 @@ Focused on mastering **Docker** and **Cloud-Native** backend patterns.
 
 | # | Title | Focus | Status |
 | :--- | :--- | :--- | :--- |
-| 010 | **[Basic Django Dockerization](./django-hello.md)** | Dockerfile architecture, Layer caching, Port forwarding | ✅ |
+| 010 | **[Basic Django Dockerization](./basic-django-docker.md)** | Dockerfile architecture, Layer caching, Port forwarding | ⏳️ |
 
 
