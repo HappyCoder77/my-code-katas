@@ -12,6 +12,7 @@ In martial arts, a *Kata* is a structured pattern of movements. In software, it'
 | :--- | :--- | :---: |
 |🐎️[**Django Dojo**](./categories/django/README.md) | Backend, DRF, Security | 2 |
 | 🐍️[**Python Dojo**](./categories/python/README.md) | Backend, DRF, Security | 0 |
+| 🐍️[**Docker Dojo**](./categories/docker/README.md) | Backend, Containers, Devops | 0 |
 ---
 
 *“We are what we repeatedly do. Excellence, then, is not an act, but a habit.”* — **Aristotle**
