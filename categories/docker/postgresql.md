@@ -22,7 +22,7 @@ Add a Postegrsql container to a basic Django project.
 ---
 
 ## 🛠️ Phase 1: Create a basic Django project with Docker
-See the kata [← Django Docker](./basic-django-docker.md)
+See the kata [← Basic Django Dockerization](./basic-django-docker.md)
 
 
 ## 🐳️ Phase 2: Dockerize the project
