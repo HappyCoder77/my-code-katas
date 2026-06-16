@@ -17,7 +17,7 @@ Add a Postegrsql container to a basic Django project.
 | **Django** | Web Framework (LTS focus) |
 | **pipenv** | Dependencies and virtual environments management. |
 | **Docker** | Containerization. |
-| **Docker** | Database. |
+| **Postgresql** | Database. |
   
 ---
 
