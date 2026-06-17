@@ -1,12 +1,12 @@
 [← Back to Docker Dojo](./README.md)
 # 🥋 Basic Docker Container
 
-This kata focuses on create a new Django project using Docker and adding PostgreSQL in a separate container as a database. The goal is to mechanize the creation of a PostgreSQL container.
+This kata focuses on creating a new Django project using Docker and adding PostgreSQL in a separate container as a database. The goal is to mechanize the creation of a PostgreSQL container.
 
 ---
 
 ## 🎯 The Objective
-Add a Postegrsql container to a basic Django project.
+Add a PostgreSQL container to a basic Django project.
 
 ---
 
@@ -23,61 +23,92 @@ Add a Postegrsql container to a basic Django project.
 
 ## 🛠️ Phase 1: Create a basic Django project with Docker
 See the kata [← Basic Django Dockerization](./basic-django-docker.md)
-(omit the cool down phase)
+(omit from short reset step onwards)
 
+## 🦸️ Phase 2: Create a superuser in detached mode
+Create a superuser for the project.
 
-## 🐳️ Phase 2: stop the container
-Create the container files for the project.
-
-1. **Create the Dockerfile:**
+1. **Run the container in detached mode:**
    ```bash
-   touch Dockerfile
+   docker compose up -d
    ```
 
-2. **Add the Dockerfile content:**
-   ```dockerfile
-    FROM python:3.12
-    
-    ENV PYTHONDONTWRITEBYTECODE=1
-    ENV PYTHONUNBUFFERED=1
-    
-    WORKDIR /code
-    
-    COPY Pipfile Pipfile.lock /code/
-    RUN pip install pipenv && pipenv install --system
-    
-    COPY . /code/
-   ```
-3. **Run command to create the container image:**
-    ```bash
-    docker build .
-    ```
-
-## 🚀️ Phase 3: Orchestration
-1. **Create a Docker Compose file:**
+2. **Create a superuser in Docker:**
    ```bash
-   touch docker-compose.yml
+    docker compose exec web python manage.py createsuperuser
+   ```
+3. **Navigate to localhost and log in**
+
+
+## 🐘️ Phase 3: Switch to PostgreSQL
+1. **Stop the container:**
+   ```bash
+   docker compose down
    ```
    
-2. **Add docker compose file content:**
+2. **Add a new db service to docker-compose.yml and make the web service depend on db:**
    ```yaml
     services:
       web:
         build: .
-        command: python /code/manage.py runserver 0.0.0.0:8000
+        command: python manage.py runserver 0.0.0.0:8000
         volumes:
           - .:/code
         ports:
-          - "8000:8000"
-
+          - 8000:8000
+        depends_on: #new
+          - db
+      db: #new
+        image: postgres:16 #new
+        environment: #new
+          - POSTGRES_HOST_AUTH_METHOD=trust
     ```
 
 3. **Run the container:**
    ```bash
-    docker compose up
+    docker compose up -d
    ```
-4. **Go to localhost in the browser:**
-   Open [http://localhost:8000](http://localhost:8000) or [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+4. **Update the database config in the settings.py file:**
+   ```python
+      DATABASES = {
+      "default": {
+          "ENGINE": "django.db.backends.postgresql",
+          "NAME": "postgres",
+          "USER": "postgres",
+          "PASSWORD": "postgres",
+          "HOST": "db",
+          "PORT": 5432,
+          }
+      }
+
+   ```
+
+5. **Install psycopg in the container:**
+  ```bash
+    docker compose exec web pipenv install psycopg2-binary==2.9.12
+  ```
+
+6. **Stop the container:**
+  ```bash
+    docker compose down
+  ```
+
+7. **Force an image rebuild:**
+  ```bash
+    docker compose up -d --build
+  ```
+8. **Run migrations**
+   ```bash
+    docker compose exec web python manage.py migrate
+   ```
+
+9. **Create superuser**
+   ```bash
+    docker compose exec web python manage.py createsuperuser
+   ```
+
+10. **Navigate to the admin page and login**
 
    
 ## 🛑 Phase 4: The Cool Down
