@@ -1,5 +1,5 @@
 [← Back to Docker Dojo](./README.md)
-# 🥋 Basic Docker Container
+# 🥋 Django PostgreSQL Container
 
 This kata focuses on creating a new Django project using Docker and adding PostgreSQL in a separate container as a database. The goal is to mechanize the creation of a PostgreSQL container.
 
