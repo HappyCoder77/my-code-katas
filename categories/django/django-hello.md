@@ -60,8 +60,8 @@ Run the commands to bootstrap the project.
     ```bash
     python manage.py runserver
     ```
-7. ** Navigate to localhost in the browser**
-8. ** Navigate to localhost/admin in the browser and login with superuser credentials**
+7. **Navigate to localhost in the browser**
+8. **Navigate to localhost/admin in the browser and login with superuser credentials**
    
 ## 🛑 Phase 3: The Cool Down
 Clean up and exit the virtual environment.
