@@ -62,7 +62,7 @@ Create the container files for the project.
     services:
       web:
         build: .
-        command: python /code/manage.py runserver 0.0.0.0:8000
+        command: python manage.py runserver 0.0.0.0:8000
         volumes:
           - .:/code
         ports:
