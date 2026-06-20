@@ -42,17 +42,27 @@ Run the commands to bootstrap the project.
    ```bash
    python manage.py migrate
    ```
+3. **Create superuser:**
+   ```bash
+   python manage.py createsuperuser
+   ```
 
-3. **Verify the configuration (Sanity Check):**
+4. **Edit TIME_ZONE in settings.py file:**
+   ```python
+   TIME_ZONE = 'America/Caracas'
+   
+5. **Verify the configuration (Sanity Check):**
    ```bash
    python manage.py check
    ```
    
-4. **Start the environment:**
+6. **Start the environment:**
     ```bash
     python manage.py runserver
     ```
-
+7. ** Navigate to localhost in the browser**
+8. ** Navigate to localhost/admin in the browser and login with superuser credentials**
+   
 ## 🛑 Phase 3: The Cool Down
 Clean up and exit the virtual environment.
 
