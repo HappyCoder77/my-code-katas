@@ -21,7 +21,7 @@ Add a Docker container to a basic Django project.
 ---
 
 ## 🛠️ Phase 1: Create a basic Django project
-See the kata [← Django Hello](../django-hello.md)
+See the kata [← Django Hello](../django/django-hello.md)
 
 
 ## 🐳️ Phase 2: Dockerize the project
