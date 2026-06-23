@@ -32,65 +32,64 @@ See the kata [← Basic Django Dockerization](./basic-django-docker.md) inside a
    ```
    
 2. **Add a new db service to docker-compose.yml and make the web service depend on db:**
-   ```yaml
-    services:
-      web:
-        build: .
-        command: python manage.py runserver 0.0.0.0:8000
-        volumes:
-          - .:/code
-        ports:
-          - 8000:8000
-        depends_on: #new
-          - db
-      db: #new
-        image: postgres:16 #new
-        environment: #new
-          - POSTGRES_HOST_AUTH_METHOD=trust
-    ```
+```yaml
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on: #new
+      - db
+  db: #new
+    image: postgres:16 #new
+    environment: #new
+      - POSTGRES_HOST_AUTH_METHOD=trust
+```
 
 3. **Update the database config in the settings.py file:**
 Comment out the original config and add this:
-   ```python
-      DATABASES = {
-      "default": {
-          "ENGINE": "django.db.backends.postgresql",
-          "NAME": "postgres",
-          "USER": "postgres",
-          "HOST": "db",
-          "PORT": 5432,
-          }
+```python
+  DATABASES = {
+  "default": {
+      "ENGINE": "django.db.backends.postgresql",
+      "NAME": "postgres",
+      "USER": "postgres",
+      "HOST": "db",
+      "PORT": 5432,
       }
-
-   ```
+  }
+```
 1. **Restart the container:**
-   ```bash
-   docker compose up -d
-   ```
+```bash
+docker compose up -d
+```
 4. **Install psycopg in the container:**
-  ```bash
-    docker compose exec web pipenv install psycopg2-binary==2.9.12
-  ```
+```bash
+docker compose exec web pipenv install psycopg2-binary==2.9.12
+```
 
 5. **Force an image rebuild:**
-  ```bash
-    docker compose up -d --build
-  ```
+```bash
+docker compose up -d --build
+```
 
 6. **Delete the sqlite3 file:**
-  ```bash
-    rm db.sqlite3
-  ```
+```bash
+rm db.sqlite3
+```
 
 7. **Run migrations**
-   ```bash
-    docker compose exec web python manage.py migrate
-   ```
+ ```bash
+ docker compose exec web python manage.py migrate
+ ```
 
 8. **Create superuser**
-   ```bash
-    docker compose exec web python manage.py createsuperuser
-   ```
+ ```bash
+ docker compose exec web python manage.py createsuperuser
+ ```
 
 9. **Navigate to the admin page and login**
 
@@ -103,18 +102,24 @@ Use this to wipe the slate clean and practice Phase 2 and 3 again from scratch, 
 
 1. **Stop containers y remove all images:**
 ```bash
-docker compose down --rmi all
+docker compose down --rmi all -v
 ```
 2. **Restore the original docker-compose file:**
-```yml
-  services:
-    web:
-      build: .
-      command: python manage.py runserver 0.0.0.0:8000
-      volumes:
-        - .:/code
-      ports:
-        - 8000:8000
+```yaml
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on: #DELETE FROM THIS LINE ONWARDS
+      - db
+  db: #new
+    image: postgres:16
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
 ```
 3. **Restore original Pipfile:**
 ```
@@ -131,9 +136,10 @@ psycopg2-binary = "==2.9.12" #REMOVE THIS LINE
 [requires]
 python_version = "3.12"
 ```
-4. **Uninstall psycopg2:**
+4. **Recreate the Pipfile.lock:**
 ```bash
-pipenv uninstall psycopg2-binary
+rm -f Pipfle.lock
+pipenv lock
 ```
 5. **Restore original DATABASES settings in settings.py:**
 Remove the current DATABASE settings and uncomment the original config
@@ -145,6 +151,13 @@ DATABASES = {
     }
 }
 ```
+6. **Activate the local environment:**
+```bash
+pipenv shell
+python manage.py runserver
+```
+7. **Navigate to localhost in your browser**
+
 
 ## 🪓 3. The "Full Wipe" (Optional - Absolute Scratch)
 If you want to practice the entire pipeline from the very beginning (including Phase 1: Django Setup from the previous kata)
