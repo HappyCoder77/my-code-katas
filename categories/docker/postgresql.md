@@ -138,7 +138,7 @@ python_version = "3.12"
 ```
 4. **Recreate the Pipfile.lock:**
 ```bash
-rm -f Pipfle.lock
+rm -f Pipfile.lock
 pipenv lock
 ```
 5. **Restore original DATABASES settings in settings.py:**
