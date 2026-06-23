@@ -22,25 +22,10 @@ Add a PostgreSQL container to a basic Django project.
 ---
 
 ## 🛠️ Phase 1: Create a basic Django project with Docker
-See the kata [← Basic Django Dockerization](./basic-django-docker.md)
+See the kata [← Basic Django Dockerization](./basic-django-docker.md) inside a dir called postgresql
 (omit from short reset step onwards)
 
-## 🦸️ Phase 2: Create a superuser in detached mode
-Create a superuser for the project.
-
-1. **Run the container in detached mode:**
-   ```bash
-   docker compose up -d
-   ```
-
-2. **Create a superuser in Docker:**
-   ```bash
-    docker compose exec web python manage.py createsuperuser
-   ```
-3. **Navigate to localhost and log in**
-
-
-## 🐘️ Phase 3: Switch to PostgreSQL
+## 🐘️ Phase 2: Switch to PostgreSQL
 1. **Stop the container:**
    ```bash
    docker compose down
@@ -64,12 +49,8 @@ Create a superuser for the project.
           - POSTGRES_HOST_AUTH_METHOD=trust
     ```
 
-3. **Run the container:**
-   ```bash
-    docker compose up -d
-   ```
-
-4. **Update the database config in the settings.py file:**
+3. **Update the database config in the settings.py file:**
+Comment out the original config and add this:
    ```python
       DATABASES = {
       "default": {
@@ -82,42 +63,40 @@ Create a superuser for the project.
       }
 
    ```
-
-5. **Install psycopg in the container:**
+1. **Restart the container:**
+   ```bash
+   docker compose up -d
+   ```
+4. **Install psycopg in the container:**
   ```bash
     docker compose exec web pipenv install psycopg2-binary==2.9.12
   ```
 
-6. **Stop the container:**
-  ```bash
-    docker compose down
-  ```
-
-7. **Force an image rebuild:**
+5. **Force an image rebuild:**
   ```bash
     docker compose up -d --build
   ```
-8. **Run migrations**
+
+6. **Delete the sqlite3 file:**
+  ```bash
+    rm db.sqlite3
+  ```
+
+7. **Run migrations**
    ```bash
     docker compose exec web python manage.py migrate
    ```
 
-9. **Create superuser**
+8. **Create superuser**
    ```bash
     docker compose exec web python manage.py createsuperuser
    ```
 
-10. **Navigate to the admin page and login**
+9. **Navigate to the admin page and login**
 
    
 ## 🛑 Phase 4: The Cool Down
 Keep your workspace clean and prepare the environment for the next training session.
-
-### 🔌 1. Cool Down (Stop the current run)
-When you finish testing, gracefully stop the containers and remove the networks created by Docker Compose:
-```bash
-docker compose down
-```
 
 ## 🔄 2. Short Reset (Repeat Dockerization from the base project)
 Use this to wipe the slate clean and practice Phase 2 and 3 again from scratch, keeping your base Django project and Pipfile intact.
@@ -126,9 +105,45 @@ Use this to wipe the slate clean and practice Phase 2 and 3 again from scratch, 
 ```bash
 docker compose down --rmi all
 ```
-2. **Delete only the Docker configuration files:**
+2. **Restore the original docker-compose file:**
+```yml
+  services:
+    web:
+      build: .
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+        - .:/code
+      ports:
+        - 8000:8000
+```
+3. **Restore original Pipfile:**
+```
+[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+psycopg2-binary = "==2.9.12" #REMOVE THIS LINE
+[dev-packages]
+
+[requires]
+python_version = "3.12"
+```
+4. **Uninstall psycopg2:**
 ```bash
-rm Dockerfile docker-compose.yml
+pipenv uninstall psycopg2-binary
+```
+5. **Restore original DATABASES settings in settings.py:**
+Remove the current DATABASE settings and uncomment the original config
+```python
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 ```
 
 ## 🪓 3. The "Full Wipe" (Optional - Absolute Scratch)
@@ -141,7 +156,7 @@ docker compose down --rmi all -v
 2. **Remove Pipenv virtual environment and all files:**
 ```bash
 pipenv --rm
-cd .. && rm -rf hello
+cd .. && rm -rf postgresql
 ```
 ---
 
