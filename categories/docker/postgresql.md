@@ -157,7 +157,11 @@ pipenv shell
 python manage.py runserver
 ```
 7. **Navigate to localhost in your browser**
-
+7. **Stop the local server (ctrl + c)**
+8. **Deactive the local environment**
+```bash
+exit
+```
 
 ## 🪓 3. The "Full Wipe" (Optional - Absolute Scratch)
 If you want to practice the entire pipeline from the very beginning (including Phase 1: Django Setup from the previous kata)
