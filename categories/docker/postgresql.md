@@ -157,8 +157,8 @@ pipenv shell
 python manage.py runserver
 ```
 7. **Navigate to localhost in your browser**
-7. **Stop the local server (ctrl + c)**
-8. **Deactive the local environment**
+8. **Stop the local server (ctrl + c)**
+9. **Deactivate the local environment**
 ```bash
 exit
 ```
